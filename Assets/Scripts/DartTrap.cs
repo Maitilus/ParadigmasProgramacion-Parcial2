@@ -16,6 +16,7 @@ public class DartTrap : MonoBehaviour
         StartCoroutine(BurstFire());
     }
 
+    //usando una corrutina podemos hacer intervalos entre lineas de codigo
     private IEnumerator BurstFire()
     {
         Instantiate(bulletPrefab, bulletSpawn.transform.position, bulletSpawn.transform.rotation);

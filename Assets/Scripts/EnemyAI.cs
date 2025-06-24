@@ -1,35 +1,37 @@
 using NUnit.Framework;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyAI : MonoBehaviour
+//Gracias a la Abstraccion es posible crear el comportamiento base de un enemigo y luego hacer variantes ddel mismo
+public abstract class EnemyAI : MonoBehaviour
 {
     #region Variables
 
-
-    private NavMeshAgent navMesh;
-    private Transform player;
-    [SerializeField] private LayerMask whatIsGround, whatIsPlayer;
+    //Variables protegidas pueden ser Heredadas desde la superclase para no tener que declararlas multiples veces
+    protected NavMeshAgent navMesh;
+    protected Transform player;
+    [SerializeField] protected LayerMask whatIsGround, whatIsPlayer;
 
     //Patroling
-    [SerializeField] private Vector3 walkPoint;
-    [SerializeField] private bool walkPointSet;
-    [SerializeField] private float walkPointRange;
+    [SerializeField] protected Vector3 walkPoint;
+    [SerializeField] protected bool walkPointSet;
+    [SerializeField] protected float walkPointRange;
 
     //Attacking
-    [SerializeField] public float attackCD;
-    [SerializeField] private bool CanAttack;
-    [SerializeField] private Transform bulletSpawn;
-    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] protected float attackCD;
+    [SerializeField] protected bool CanAttack;
+    [SerializeField] protected Transform bulletSpawn;
+    [SerializeField] protected GameObject bulletPrefab;
 
     //States
-    [SerializeField] private float LOSRange, attackRange;
-    [SerializeField] private bool playerIsInLOS, playerIsInAttackRange;
-    [SerializeField] private float unawareVision, awareVision;
+    [SerializeField] protected float LOSRange, attackRange;
+    [SerializeField] protected bool playerIsInLOS, playerIsInAttackRange;
+    [SerializeField] protected float unawareVision, awareVision;
 
     #endregion
 
-    private void Awake()
+    protected virtual void Awake()
     {
         //Get References
         player = GameObject.Find("Playerbody").transform;
@@ -37,7 +39,7 @@ public class EnemyAI : MonoBehaviour
         CanAttack = true;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         //Check for LOS and Attack Range
         playerIsInLOS = Physics.CheckSphere(transform.position, LOSRange, whatIsPlayer);
@@ -61,7 +63,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    private void PathFind()
+    protected virtual void PathFind()
     {
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
@@ -71,14 +73,14 @@ public class EnemyAI : MonoBehaviour
         if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround)) { walkPointSet = true; }
     }
 
-    private void ResetAttack()
+    protected virtual void ResetAttack()
     {
         CanAttack = true;
     }
 
     #region States
 
-    private void Patrol()
+    protected virtual void Patrol()
     {
         if (!walkPointSet) { PathFind(); }
 
@@ -89,12 +91,12 @@ public class EnemyAI : MonoBehaviour
         if (distanceToWalkPoint.magnitude < 1) { walkPointSet = false; }
     }
 
-    private void Chase()
+    protected virtual void Chase()
     {
         navMesh.SetDestination(player.position);
     }
 
-    private void Attack()
+    protected virtual void Attack()
     {
         navMesh.SetDestination(transform.position);
 

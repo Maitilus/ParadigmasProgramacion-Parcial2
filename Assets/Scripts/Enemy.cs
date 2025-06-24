@@ -3,7 +3,10 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, IInteraction, ITakeDamage
 {
     [SerializeField] private ScriptableEnemy EnemyData;
-    
+
+
+    //Usando variables privadas junto a un get conseguimos variables de solo lectura
+    //Encapsulamiento
     private string EnemyName;
     private float Damage;
     private float Health;

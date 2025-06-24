@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ScriptableEnemy", menuName = "Scriptable Objects/ScriptableEnemy")]
 public class ScriptableEnemy : ScriptableObject
 {
+    //Scriptable object nos permite definir una serie de atributos o estadisticas que luego podremos usar como Molde para nuestros objetos
     [SerializeField] private string EnemyName;
     [SerializeField] private float Damage;
     [SerializeField] private float Health;

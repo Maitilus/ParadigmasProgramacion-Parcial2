@@ -96,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
 
-        if(Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             InteractWithObject();
         }
@@ -107,10 +107,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //Metodo de Interaccion Utilizando Interfaz
     private void InteractWithObject()
     {
         Ray ray = new(playerCamera.transform.position, playerCamera.transform.forward);
-        Debug.DrawRay(ray.origin,ray.direction * InteractionDistance);
+        Debug.DrawRay(ray.origin, ray.direction * InteractionDistance);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, InteractionDistance))

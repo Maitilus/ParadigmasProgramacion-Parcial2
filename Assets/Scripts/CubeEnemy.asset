@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: CubeEnemy
   m_EditorClassIdentifier: 
   EnemyName: Cube
-  Damage: 12
-  Health: 150
+  Damage: 20
+  Health: 120

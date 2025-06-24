@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Door : MonoBehaviour, IInteraction
 {
+    //Animacion para abrir y cerrar una puerta
     [SerializeField] Animation Animation;
     private bool isOpen;
 

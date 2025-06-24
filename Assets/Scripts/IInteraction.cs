@@ -1,7 +1,8 @@
 using UnityEngine;
 
-    public interface IInteraction
-    {
-        void Interact();
-    }
+//Usando una Interfaz para darle distintas reacciones a un mismo input dependiendo de necesidad
+public interface IInteraction
+{
+    void Interact();
+}
 
